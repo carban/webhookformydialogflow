@@ -17,12 +17,10 @@ app.use(cors());
 
 //routes
 app.post("/", (req, res) => {
-  var speech =
-    req.body.queryResult &&
-      req.body.queryResult.parameters &&
-      req.body.queryResult.parameters.echoText
-      ? req.body.queryResult.parameters.echoText
-      : "Hubo un problema, intentalo nuevamente" + req.body;
+  var speech = req.body.queryResult &&
+    req.body.queryResult.queryText
+    ? req.body.queryResult.queryText
+    : "Hubo un problema, intentalo nuevamente " + req.body;
 
   res.json(
     {
