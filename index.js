@@ -17,7 +17,11 @@ app.use(cors());
 
 //routes
 app.post("/", (req, res) => {
-  res.json(req.body);
+  var obj = {
+    df: req.body,
+    heroku: "from heroku"
+  }
+  res.json(obj);
 })
 //start server
 app.listen(app.get('port'), () => {
