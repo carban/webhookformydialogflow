@@ -17,11 +17,26 @@ app.use(cors());
 
 //routes
 app.post("/", (req, res) => {
-  var obj = {
-    df: req.body,
-    heroku: "from heroku"
-  }
-  res.json(obj);
+  var speech =
+    req.body.queryResult &&
+      req.body.queryResult.parameters &&
+      req.body.queryResult.parameters.echoText
+      ? req.body.queryResult.parameters.echoText
+      : "Hubo un problema, intentalo nuevamente" + req.body;
+
+  res.json(
+    {
+      "fulfillmentText": speech,
+      "fulfillmentMessages": [
+        {
+          "text": {
+            "text": [speech]
+          }
+        }
+      ],
+      "source": "<webhookpn1>"
+    });
+
 })
 //start server
 app.listen(app.get('port'), () => {
