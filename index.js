@@ -17,6 +17,7 @@ app.use(cors());
 
 //routes
 app.post("/", (req, res) => {
+  console.log(req.body);
   res.json({ hola: true });
 })
 //start server
