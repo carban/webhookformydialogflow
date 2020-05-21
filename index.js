@@ -44,6 +44,7 @@ app.post("/", (req, res) => {
             ],
             "source": "<webhookpn1>"
           });
+          good = true;
       } else {
         var { codeInvoice } = res.data.invoices[0];
         bill = codeInvoice;
