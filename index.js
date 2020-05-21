@@ -49,11 +49,11 @@ app.post("/", (req, res) => {
         answ = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
         res.json(
           {
-            "fulfillmentText": answ,
+            "fulfillmentText": "answ",
             "fulfillmentMessages": [
               {
                 "text": {
-                  "text": [answ]
+                  "text": ["answ"]
                 }
               }
             ],
