@@ -64,11 +64,11 @@ app.post("/", (req, res) => {
     .catch(err => {
       res.json(
         {
-          "fulfillmentText": err.response,
+          "fulfillmentText": "err.response",
           "fulfillmentMessages": [
             {
               "text": {
-                "text": [err.response]
+                "text": ["err.response"]
               }
             }
           ],
