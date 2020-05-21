@@ -28,7 +28,6 @@ app.post("/", (req, res) => {
   var contract = a[4];
   var bill = "";
   var good = false;
-
   axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: contract })
     .then(res => {
       var { error, find } = res.data;
@@ -56,18 +55,18 @@ app.post("/", (req, res) => {
     })
 
   if (good) {
-    speech = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/></a>";
+    speech = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
   } else {
     speech = "Ups. No la encontre :(2";
   }
 
   res.json(
     {
-      "fulfillmentText": good,
+      "fulfillmentText": bill,
       "fulfillmentMessages": [
         {
           "text": {
-            "text": [good]
+            "text": [bill]
           }
         }
       ],
