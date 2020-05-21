@@ -66,7 +66,7 @@ app.post("/", (req, res) => {
       var codeInvoice = response.data.invoices[0].codeInvoice;
       // console.log(codeInvoice);
       bill = codeInvoice;
-      answ = "Consultalo en el siguiente <a href='https://energycorp.herokuapp.com/api/invoice/pdf/" + contract + "/" + bill + "/>Link</a>";
+      answ = "Consultalo en el siguiente <a href='https://energycorp.herokuapp.com/api/invoice/pdf/" + contract + "/" + bill + "/'>Link</a>";
       res.json(
         {
           "fulfillmentText": answ,
