@@ -45,7 +45,8 @@ app.post("/", (req, res) => {
             "source": "<webhookpn1>"
           });
       } else {
-        var { codeInvoice } = res.data.invoices[0];
+        var codeInvoice = res.data.invoices[0].codeInvoice;
+        console.log(codeInvoice);
         // bill = codeInvoice;
         // answ = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
         res.json(
