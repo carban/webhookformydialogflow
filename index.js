@@ -63,7 +63,7 @@ app.post("/", (req, res) => {
 
   res.json(
     {
-      "fulfillmentText": speech,
+      "fulfillmentText": good,
       "fulfillmentMessages": [
         {
           "text": {
