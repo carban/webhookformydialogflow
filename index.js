@@ -79,11 +79,11 @@ app.post("/", (req, res) => {
     // })
     res.json(
       {
-        "fulfillmentText": "veeeee",
+        "fulfillmentText": res.data.invoices[0].codeInvoice.toString(),
         "fulfillmentMessages": [
           {
             "text": {
-              "text": ["veeeee"]
+              "text": [res.data.invoices[0].codeInvoice.toString()]
             }
           }
         ],
