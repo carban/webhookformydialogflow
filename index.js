@@ -27,7 +27,6 @@ app.post("/", (req, res) => {
   var a = speech.split(" ");
   var contract = a[3];
   var bill = "";
-  var good = false;
   axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: contract })
     .then(res => {
       var { error, find } = res.data;
@@ -44,36 +43,27 @@ app.post("/", (req, res) => {
             ],
             "source": "<webhookpn1>"
           });
-          good = true;
       } else {
         var { codeInvoice } = res.data.invoices[0];
         bill = codeInvoice;
-        good = true;
+        answ = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
+        res.json(
+          {
+            "fulfillmentText": answ,
+            "fulfillmentMessages": [
+              {
+                "text": {
+                  "text": [answ]
+                }
+              }
+            ],
+            "source": "<webhookpn1>"
+          });
       }
     })
     .catch(err => {
       console.log(err);
     })
-
-  if (good) {
-    speech = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
-  } else {
-    speech = "Ups!. :'v";
-  }
-
-  res.json(
-    {
-      "fulfillmentText": speech,
-      "fulfillmentMessages": [
-        {
-          "text": {
-            "text": [speech]
-          }
-        }
-      ],
-      "source": "<webhookpn1>"
-    });
-
 })
 //start server
 app.listen(app.get('port'), () => {
