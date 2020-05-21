@@ -29,8 +29,8 @@ app.post("/", (req, res) => {
   var bill = "";
 
   axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: parseInt(contract) })
-    .then(res => {
-      console.log(res.data);
+    .then(response => {
+      console.log(response.data);
       res.json(
         {
           "fulfillmentText": res.data.invoices[0].codeInvoice,
