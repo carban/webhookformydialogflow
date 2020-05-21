@@ -29,72 +29,72 @@ app.post("/", (req, res) => {
   var bill = "";
 
   axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: parseInt(contract) })
-    .then(response => {
-      console.log(response.data);
+  //   .then(response => {
+  //     console.log(response.data);
+  //     res.json(
+  //       {
+  //         "fulfillmentText": response.data.invoices[0].codeInvoice,
+  //         "fulfillmentMessages": [
+  //           {
+  //             "text": {
+  //               "text": [response.data.invoices[0].codeInvoice]
+  //             }
+  //           }
+  //         ],
+  //         "source": "<webhookpn1>"
+  //       });
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  .then(response => {
+    var { error, find } = response.data;
+    if (error === true || find === false) {
       res.json(
         {
-          "fulfillmentText": res.data.invoices[0].codeInvoice,
+          "fulfillmentText": "Ups. error :(",
           "fulfillmentMessages": [
             {
               "text": {
-                "text": [res.data.invoices[0].codeInvoice]
+                "text": ["Ups. error :("]
               }
             }
           ],
           "source": "<webhookpn1>"
         });
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  // .then(res => {
-  //   var { error, find } = res.data;
-  //   if (error === true || find === false) {
-  //     res.json(
-  //       {
-  //         "fulfillmentText": "Ups. error :(",
-  //         "fulfillmentMessages": [
-  //           {
-  //             "text": {
-  //               "text": ["Ups. error :("]
-  //             }
-  //           }
-  //         ],
-  //         "source": "<webhookpn1>"
-  //       });
-  //   } else {
-  //     var codeInvoice = res.data.invoices[0].codeInvoice;
-  //     console.log(codeInvoice);
-  //     // bill = codeInvoice;
-  //     // answ = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
-  //     res.json(
-  //       {
-  //         "fulfillmentText": codeInvoice,
-  //         "fulfillmentMessages": [
-  //           {
-  //             "text": {
-  //               "text": [codeInvoice]
-  //             }
-  //           }
-  //         ],
-  //         "source": "<webhookpn1>"
-  //       });
-  //   }
-  // })
-  // .catch(err => {
-  //   res.json(
-  //     {
-  //       "fulfillmentText": "err.response",
-  //       "fulfillmentMessages": [
-  //         {
-  //           "text": {
-  //             "text": ["err.response"]
-  //           }
-  //         }
-  //       ],
-  //       "source": "<webhookpn1>"
-  //     });
-  // })
+    } else {
+      var codeInvoice = response.data.invoices[0].codeInvoice;
+      // console.log(codeInvoice);
+      bill = codeInvoice;
+      answ = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
+      res.json(
+        {
+          "fulfillmentText": answ,
+          "fulfillmentMessages": [
+            {
+              "text": {
+                "text": [answ]
+              }
+            }
+          ],
+          "source": "<webhookpn1>"
+        });
+    }
+  })
+  .catch(err => {
+    res.json(
+      {
+        "fulfillmentText": "err.response",
+        "fulfillmentMessages": [
+          {
+            "text": {
+              "text": ["err.response"]
+            }
+          }
+        ],
+        "source": "<webhookpn1>"
+      });
+  })
 
 })
 //start server
