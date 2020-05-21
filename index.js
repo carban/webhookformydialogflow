@@ -27,7 +27,7 @@ app.post("/", (req, res) => {
   var a = speech.split(" ");
   var contract = a[3];
   var bill = "";
-  axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: contract })
+  axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: parseInt(contract) })
     .then(res => {
       var { error, find } = res.data;
       if (error === true || find === false) {
@@ -62,7 +62,18 @@ app.post("/", (req, res) => {
       }
     })
     .catch(err => {
-      console.log(err);
+      res.json(
+        {
+          "fulfillmentText": err,
+          "fulfillmentMessages": [
+            {
+              "text": {
+                "text": [err]
+              }
+            }
+          ],
+          "source": "<webhookpn1>"
+        });
     })
 })
 //start server
