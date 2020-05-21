@@ -33,7 +33,18 @@ app.post("/", (req, res) => {
     .then(res => {
       var { error, find } = res.data;
       if (error === true || find === false) {
-        res.json({ error: error });
+        res.json(
+          {
+            "fulfillmentText": "Ups. No la encontre :(",
+            "fulfillmentMessages": [
+              {
+                "text": {
+                  "text": ["Ups. No la encontre :("]
+                }
+              }
+            ],
+            "source": "<webhookpn1>"
+          });
       } else {
         var { codeInvoice } = res.data[0].invoices;
         bill = codeInvoice;
@@ -47,7 +58,7 @@ app.post("/", (req, res) => {
   if (good) {
     speech = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/></a>";
   } else {
-    speech = "No la encontre :(";
+    speech = "Ups. No la encontre :(";
   }
 
   res.json(
