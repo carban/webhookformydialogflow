@@ -25,7 +25,7 @@ app.post("/", (req, res) => {
 
   // axios.post 
   var a = speech.split(" ");
-  var contract = a[4];
+  var contract = a[3];
   var bill = "";
   var good = false;
   axios.post("https://energycorp.herokuapp.com/api/invoice/by-contract/", { contractNumber: contract })
@@ -34,11 +34,11 @@ app.post("/", (req, res) => {
       if (error === true || find === false) {
         res.json(
           {
-            "fulfillmentText": "Ups. No la encontre :(",
+            "fulfillmentText": "Ups. error :(",
             "fulfillmentMessages": [
               {
                 "text": {
-                  "text": ["Ups. No la encontre :(1"]
+                  "text": ["Ups. error :("]
                 }
               }
             ],
@@ -57,16 +57,16 @@ app.post("/", (req, res) => {
   if (good) {
     speech = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/>Link</a>";
   } else {
-    speech = "Ups. No la encontre :(2";
+    speech = "Ups!. :'v";
   }
 
   res.json(
     {
-      "fulfillmentText": bill,
+      "fulfillmentText": speech,
       "fulfillmentMessages": [
         {
           "text": {
-            "text": [bill]
+            "text": [speech]
           }
         }
       ],
