@@ -77,13 +77,14 @@ app.post("/", (req, res) => {
     //       "source": "<webhookpn1>"
     //     });
     // })
+    console.log(res.data);
     res.json(
       {
-        "fulfillmentText": res.data.invoices[0].codeInvoice.toString(),
+        "fulfillmentText": res.data.invoices[0].codeInvoice,
         "fulfillmentMessages": [
           {
             "text": {
-              "text": [res.data.invoices[0].codeInvoice.toString()]
+              "text": [res.data.invoices[0].codeInvoice]
             }
           }
         ],
