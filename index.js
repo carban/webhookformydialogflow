@@ -39,7 +39,7 @@ app.post("/", (req, res) => {
             "fulfillmentMessages": [
               {
                 "text": {
-                  "text": ["Ups. No la encontre :("]
+                  "text": ["Ups. No la encontre :(1"]
                 }
               }
             ],
@@ -58,7 +58,7 @@ app.post("/", (req, res) => {
   if (good) {
     speech = "Consultalo en el siguiente link:" + "<a href='https://energycorp.herokuapp.com/api/invoice/pdf/'" + contract + "/" + bill + "/></a>";
   } else {
-    speech = "Ups. No la encontre :(";
+    speech = "Ups. No la encontre :(2";
   }
 
   res.json(
